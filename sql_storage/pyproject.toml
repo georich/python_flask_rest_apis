@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "sql_storage"
+version = "0.1.0"
+description = ""
+authors = ["George Richards <georich@protonmail.com>"]
+
+[tool.poetry.dependencies]
+python = "*"
+flask = "^1.0"
+flask-restful = "^0.3.6"
+flask-JWT = "^0.3.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^3.5"
+yapf = "^0.21.0"
+pydocstyle = "^2.1"
+flake8 = "^3.5"
