@@ -8,6 +8,7 @@ authors = ["George Richards <georich@protonmail.com>"]
 python = "*"
 flask = "^1.0"
 flask-restful = "^0.3.6"
+Flask-JWT = "^0.3.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.5"
