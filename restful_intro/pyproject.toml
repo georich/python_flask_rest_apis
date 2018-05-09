@@ -12,3 +12,6 @@ Flask-JWT = "^0.3.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.5"
+yapf = "^0.21.0"
+pydocstyle = "^2.1"
+flake8 = "^3.5"
