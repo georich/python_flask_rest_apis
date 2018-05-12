@@ -28,6 +28,18 @@ class Item(Resource):
         if row:
             return {'item': {'name': row[0], 'price': row[1]}}
 
+    @classmethod
+    def insert(cls, item):
+        """Insert an item into the database."""
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+
+        query = "INSERT INTO items VALUES (?, ?)"
+        cursor.execute(query, (item['name'], item['price']))
+
+        connection.commit()
+        connection.close()
+
     @jwt_required()
     def get(self, name):
         """GET /item route."""
@@ -47,14 +59,10 @@ class Item(Resource):
 
         item = {'name': name, 'price': data['price']}
 
-        connection = sqlite3.connect('data.db')
-        cursor = connection.cursor()
-
-        query = "INSERT INTO items VALUES (?, ?)"
-        cursor.execute(query, (item['name'], item['price']))
-
-        connection.commit()
-        connection.close()
+        try:
+            Item.insert(item)
+        except:
+            return {'message': 'An error occured inserting the item.'}, 500
 
         return item, 201
 
