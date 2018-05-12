@@ -1,3 +1,4 @@
+"""Creates tables in SQLite to be used in the app."""
 import sqlite3
 
 connection = sqlite3.connect('data.db')
