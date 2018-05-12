@@ -40,6 +40,18 @@ class Item(Resource):
         connection.commit()
         connection.close()
 
+    @classmethod
+    def update(cls, item):
+        """Update an item in the database."""
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+
+        query = "UPDATE items SET price=? WHERE name=?"
+        cursor.execute(query, (item['price'], item['name']))
+
+        connection.commit()
+        connection.close()
+
     @jwt_required()
     def get(self, name):
         """GET /item route."""
@@ -83,13 +95,14 @@ class Item(Resource):
         """PUT /item route."""
         data = Item.parser.parse_args()
 
-        item = next(filter(lambda x: x['name'] == name, items), None)
+        item = Item.find_by_name(name)
+        updated_item = {'name': name, 'price': data['price']}
+
         if item is None:
-            item = {'name': name, 'price': data['price']}
-            items.append(item)
+            Item.insert(updated_item)
         else:
-            item.update(data)
-        return item
+            Item.update(updated_item)
+        return updated_item
 
 
 class ItemList(Resource):
