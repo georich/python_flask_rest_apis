@@ -30,7 +30,7 @@ class Item(Resource):
                 'message': f"An item with name '{name}' already exists."
             }, 400
 
-        data = ItemModel.parser.parse_args()
+        data = Item.parser.parse_args()
 
         item = ItemModel(name, data['price'])
 
@@ -56,7 +56,7 @@ class Item(Resource):
 
     def put(self, name):
         """PUT /item route."""
-        data = ItemModel.parser.parse_args()
+        data = Item.parser.parse_args()
 
         item = ItemModel.find_by_name(name)
         updated_item = ItemModel(name, data['price'])
