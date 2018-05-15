@@ -35,7 +35,7 @@ class Item(Resource):
         item = ItemModel(name, data['price'])
 
         try:
-            item.insert()
+            item.save_to_db()
         except:
             return {'message': 'An error occured inserting the item.'}, 500
 
@@ -43,14 +43,9 @@ class Item(Resource):
 
     def delete(self, name):
         """DELETE /item route."""
-        connection = sqlite3.connect('data.db')
-        cursor = connection.cursor()
-
-        query = "DELETE FROM items WHERE name=?"
-        cursor.execute(query, (name,))
-
-        connection.commit()
-        connection.close()
+        item = ItemModel.find_by_name(name)
+        if item:
+            item.delete_from_db()
 
         return {'message': 'Item deleted'}
 
@@ -59,13 +54,15 @@ class Item(Resource):
         data = Item.parser.parse_args()
 
         item = ItemModel.find_by_name(name)
-        updated_item = ItemModel(name, data['price'])
 
         if item is None:
-            updated_item.insert()
+            item = ItemModel(name, data['price'])
         else:
-            updated_item.update()
-        return updated_item.json()
+            item.price = data['price']
+
+        item.save_to_db()
+
+        return item.json()
 
 
 class ItemList(Resource):
