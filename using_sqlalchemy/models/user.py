@@ -27,5 +27,6 @@ class UserModel(db.Model):
         return cls.query.filter_by(id=_id)
 
     def save_to_db(self):
+        """Save the user to the db."""
         db.session.add(self)
         db.session.commit()
