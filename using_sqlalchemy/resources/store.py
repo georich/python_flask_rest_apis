@@ -1,6 +1,6 @@
 """Set up store resource including endpoints."""
 from flask_restful import Resource
-from model.store import StoreModel
+from models.store import StoreModel
 
 
 class Store(Resource):
