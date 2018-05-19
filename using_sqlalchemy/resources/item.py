@@ -12,15 +12,13 @@ class Item(Resource):
         'price',
         type=float,
         required=True,
-        help="This field cannot be left blank!"
-    )
+        help="This field cannot be left blank!")
 
     parser.add_argument(
         'store_id',
         type=int,
         required=True,
-        help="Every item needs a store id."
-    )
+        help="Every item needs a store id.")
 
     @jwt_required()
     def get(self, name):
@@ -43,7 +41,7 @@ class Item(Resource):
 
         try:
             item.save_to_db()
-        except:
+        except Exception as e:
             return {'message': 'An error occured inserting the item.'}, 500
 
         return item.json(), 201
