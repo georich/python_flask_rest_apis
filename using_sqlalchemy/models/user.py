@@ -5,7 +5,7 @@ from db import db
 class UserModel(db.Model):
     """Holds users for crude database."""
 
-    __tablename__ = 'users'
+    __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80))

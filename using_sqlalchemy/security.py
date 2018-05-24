@@ -11,5 +11,5 @@ def authenticate(username, password):
 
 def identity(payload):
     """Match user payload with entry in User 'database'."""
-    user_id = payload['identity']
+    user_id = payload["identity"]
     return UserModel.find_by_id(user_id)
