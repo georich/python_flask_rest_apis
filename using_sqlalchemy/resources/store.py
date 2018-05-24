@@ -16,13 +16,17 @@ class Store(Resource):
     def post(self, name):
         """POST /store endpoint."""
         if StoreModel.find_by_name(name):
-            return {"message": f"A store with name '{name}' already exists."}, 400
+            return {
+                "message": f"A store with name '{name}' already exists."
+            }, 400
 
         store = StoreModel(name)
         try:
             store.save_to_db()
         except Exception as e:
-            return {"message": "An error occured while creating the store."}, 500
+            return {
+                "message": "An error occured while creating the store."
+            }, 500
 
         return store.json(), 201
 
