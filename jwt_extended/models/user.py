@@ -30,3 +30,12 @@ class UserModel(db.Model):
         """Save the user to the db."""
         db.session.add(self)
         db.session.commit()
+
+    def delete_from_db(self):
+        """Delete the user from the db."""
+        db.session.delete(self)
+        db.session.commit()
+
+    def json(self):
+        """Returns JSON formatting."""
+        return {"id": self.id, "username": self.username}
